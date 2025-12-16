@@ -1,0 +1,16 @@
+Building and running under QEMU
+
+Assuming you have a RISC-V GCC toolchain, e.g. riscv64-unknown-elf-gcc:
+
+riscv64-unknown-elf-gcc -march=rv64gc -mabi=lp64 -mcmodel=medany  -nostdlib -nostartfiles -ffreestanding -O2   -Wl,-T,linker.ld   start.S switch.S kernel.c   -o kernel.elf
+
+Run with QEMU (no OpenSBI/Bios, direct kernel load):
+
+qemu-system-riscv64 -machine virt -nographic -kernel kernel.elf
+
+You should see something like:
+
+--- tiny RISC-V OS starting ---
+Welcome to tiny RISC-V OS.
+Commands: help, ls, cat <name>, ps, yield
+os>
